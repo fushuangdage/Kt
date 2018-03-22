@@ -1,16 +1,20 @@
-package com.example.fushuang.kt
+package com.example.fushuang.kt.view.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.fushuang.kt.adapter.CustomAdapter
+import com.example.fushuang.kt.module.Cat
+import com.example.fushuang.kt.presenter.MyPresenter
+import com.example.fushuang.kt.view.view.IView
 
 import org.jetbrains.anko.*
 import java.util.ArrayList
 
-class ListActivity : AppCompatActivity() ,IView {
+class  ListActivity : AppCompatActivity() ,IView{
 
 
 
-    lateinit var presenter :MyPresenter
+    lateinit var presenter : MyPresenter
 
     val items = arrayListOf<Cat>()
 
@@ -21,9 +25,9 @@ class ListActivity : AppCompatActivity() ,IView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         presenter=MyPresenter()
+         presenter = MyPresenter()
 
-        presenter.attachView(this)
+//        presenter.attachView(this)
 
         verticalLayout {
             val listView = listView {  }
@@ -34,16 +38,16 @@ class ListActivity : AppCompatActivity() ,IView {
                 val cat = parent.getItemAtPosition(position) as Cat
                 toast("age"+cat.age)
             }
+        }.let {
+            setContentView(it)
         }
 
-        presenter.getData()
+//        presenter.getData()
     }
 
 
     override fun showData(list: ArrayList<Cat>?) {
-        for (item in items) {
-            items.add(item)
-        }
+        items.addAll(list!!)
         customAdapter.notifyDataSetChanged()
     }
 

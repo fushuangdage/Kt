@@ -1,7 +1,8 @@
-package com.example.fushuang.kt;
+package com.example.fushuang.kt.view.view;
+
+import com.example.fushuang.kt.module.Cat;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by fushuang on 2018/3/21.

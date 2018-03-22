@@ -1,4 +1,4 @@
-package com.example.fushuang.kt
+package com.example.fushuang.kt.view.view
 
 import android.content.Context
 import android.util.AttributeSet
@@ -9,6 +9,7 @@ import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.fushuang.kt.R
 import org.jetbrains.anko.*
 import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.sdk25.coroutines.onClick

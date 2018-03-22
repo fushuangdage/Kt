@@ -1,8 +1,9 @@
-package com.example.fushuang.kt
+package com.example.fushuang.kt.adapter
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import com.example.fushuang.kt.module.Cat
 import org.jetbrains.anko.*
 
 /**

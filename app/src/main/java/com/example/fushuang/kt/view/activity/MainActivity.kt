@@ -1,14 +1,13 @@
-package com.example.fushuang.kt
+package com.example.fushuang.kt.view.activity
 
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
 import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import com.example.fushuang.kt.R
+import com.example.fushuang.kt.view.view.myRichView
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
@@ -50,7 +49,7 @@ class MainActivityUi : AnkoComponent<MainActivity> {
 
             button("Log in") {
                 onClick {
-                    startActivity<ListActivity>()
+                    startActivity<NewsActivity>()
 
                 }
             }
