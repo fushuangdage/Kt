@@ -19,33 +19,33 @@ import org.jetbrains.anko.support.v4.UI
 class NewsDetailFragment : Fragment() {
 
 
-     lateinit var rootView: View
+  lateinit var rootView: View
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        rootView=UI {
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    // Inflate the layout for this fragment
+    rootView = UI {
 
-            scrollView{
-                verticalLayout {
+      scrollView {
+        verticalLayout {
 
-                    lparams(width= matchParent,height = matchParent)//设置布局的宽高
+          lparams(width = matchParent, height = matchParent)//设置布局的宽高
 
-                    imageView{
-                        backgroundResource =R.mipmap.ic_launcher
-                    }.lparams(width= matchParent ,height = dip(100))
+          imageView {
+            backgroundResource = R.mipmap.ic_launcher
+          }.lparams(width = matchParent, height = dip(100))
 
-                    textView{
-                        backgroundColor =Color.GRAY
-                        text="22222222222222222222"
-                        textSize =sp(24).toFloat()
-                    }.lparams( width = matchParent,height = dip(2000))
-                }
-            }
+          textView {
+            backgroundColor = Color.GRAY
+            text = "22222222222222222222"
+            textSize = sp(24).toFloat()
+          }.lparams(width = matchParent, height = dip(2000))
+        }
+      }
 
-        }.view
-        return rootView
-    }
+    }.view
+    return rootView
+  }
 
 }// Required empty public constructor

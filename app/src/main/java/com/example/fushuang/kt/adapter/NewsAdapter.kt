@@ -20,86 +20,86 @@ import org.jetbrains.anko.*
 
 class NewsAdapter(var list: List<Cat>, var context: Context) : RecyclerView.Adapter<NewsAdapter.BaseViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder? {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder? {
 
 
-        return if (viewType == 1) {
+    return if (viewType == 1) {
 
-            with(parent.context,{
-                linearLayout {
+      with(parent.context, {
+        linearLayout {
 
-                    padding = dip(10)//设置padding
-                    textView {
-                        id = 5//设置id
-                        text="标题"
-                        textSize = 24f  //字体大小
-                        paint.isFakeBoldText = true//粗体
-                    }.lparams {
-                        leftMargin = dip(10)//左边偏移量
-                        gravity = Gravity.CENTER//竖直居中
-                    }
-                }
-            }).let { NewsHeadViewHolder(it) }
-
-
-        } else {
-
-            with(parent.context,{
-                linearLayout {
-
-                    padding = dip(10)//设置padding
-                    lparams(width = matchParent ,height = wrapContent)
-                    backgroundColor =Color.GRAY
-                    gravity =Gravity.CENTER
-
-                    imageView {
-                        id = 3//设置id
-                        scaleType = ImageView.ScaleType.CENTER_CROP//图片中心裁剪
-                    }.lparams(width = dip(60), height = dip(60))//设置图片的宽高
-                    textView {
-                        id = 4//设置id
-                        textSize = 14f//字体大小
-                        paint.isFakeBoldText = true//粗体
-                    }.lparams {
-                        leftMargin = dip(10)//左边偏移量
-                        gravity = Gravity.CENTER_VERTICAL//竖直居中
-                    }
-                }
-            }).let { NewsViewHolder(it) }
-
+          padding = dip(10)//设置padding
+          textView {
+            id = 5//设置id
+            text = "标题"
+            textSize = 24f  //字体大小
+            paint.isFakeBoldText = true//粗体
+          }.lparams {
+            leftMargin = dip(10)//左边偏移量
+            gravity = Gravity.CENTER//竖直居中
+          }
         }
-    }
+      }).let { NewsHeadViewHolder(it) }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
-         if (holder is NewsViewHolder){
-             var imageView = holder.itemView.findViewById<ImageView>(3)
-             imageView.setBackgroundResource(R.mipmap.ic_launcher)
-             var text = holder.itemView.findViewById<TextView>(4)
-             var cat = list.get(position)
-             text.text = "age ${cat.age}"
-         }
+    } else {
 
-    }
+      with(parent.context, {
+        linearLayout {
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+          padding = dip(10)//设置padding
+          lparams(width = matchParent, height = wrapContent)
+          backgroundColor = Color.GRAY
+          gravity = Gravity.CENTER
 
-    override fun getItemViewType(position: Int): Int {
-        if (position == 0){
-            return  1
-        }else{
-            return 2
+          imageView {
+            id = 3//设置id
+            scaleType = ImageView.ScaleType.CENTER_CROP//图片中心裁剪
+          }.lparams(width = dip(60), height = dip(60))//设置图片的宽高
+          textView {
+            id = 4//设置id
+            textSize = 14f//字体大小
+            paint.isFakeBoldText = true//粗体
+          }.lparams {
+            leftMargin = dip(10)//左边偏移量
+            gravity = Gravity.CENTER_VERTICAL//竖直居中
+          }
         }
+      }).let { NewsViewHolder(it) }
+
+    }
+  }
+
+  override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+
+    if (holder is NewsViewHolder) {
+      var imageView = holder.itemView.findViewById<ImageView>(3)
+      imageView.setBackgroundResource(R.mipmap.ic_launcher)
+      var text = holder.itemView.findViewById<TextView>(4)
+      var cat = list.get(position)
+      text.text = "age ${cat.age}"
     }
 
-    class NewsViewHolder( itemView: View) : BaseViewHolder(itemView)
+  }
 
-    class NewsHeadViewHolder(itemView: View) : BaseViewHolder(itemView)
+  override fun getItemCount(): Int {
+    return list.size
+  }
 
-    open class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+  override fun getItemViewType(position: Int): Int {
+    if (position == 0) {
+      return 1
+    } else {
+      return 2
     }
+  }
+
+  class NewsViewHolder(itemView: View) : BaseViewHolder(itemView)
+
+  class NewsHeadViewHolder(itemView: View) : BaseViewHolder(itemView)
+
+  open class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+  }
 
 }
 

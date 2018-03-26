@@ -24,39 +24,39 @@ import org.jetbrains.anko.support.v4.UI
  */
 class NewsListFragment : Fragment() {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var rootView :View
-    lateinit var newsAdapter:NewsAdapter
-    lateinit var data:List<Cat>
+  lateinit var recyclerView: RecyclerView
+  lateinit var rootView: View
+  lateinit var newsAdapter: NewsAdapter
+  lateinit var data: List<Cat>
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        data=ArrayList()
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    // Inflate the layout for this fragment
+    data = ArrayList()
 
-        var myPresenter = MyPresenter()
+    var myPresenter = MyPresenter()
 
-        rootView=UI {
-            verticalLayout {
-                lparams(width= matchParent,height = matchParent)//设置布局的宽高
+    rootView = UI {
+      verticalLayout {
+        lparams(width = matchParent, height = matchParent)//设置布局的宽高
 
-                recyclerView{//设置滚动视图RecyclerView
-                    id = 2//控件的id
-                }.lparams(width = matchParent, height = matchParent)//控件的宽高
-            }
-        }.view
+        recyclerView {
+          //设置滚动视图RecyclerView
+          id = 2//控件的id
+        }.lparams(width = matchParent, height = matchParent)//控件的宽高
+      }
+    }.view
 
-        recyclerView = rootView.findViewById<RecyclerView>(2)
-        recyclerView.layoutManager=LinearLayoutManager(activity)
-        newsAdapter = NewsAdapter(data, activity)
-        recyclerView.adapter= newsAdapter
+    recyclerView = rootView.findViewById<RecyclerView>(2)
+    recyclerView.layoutManager = LinearLayoutManager(activity)
+    newsAdapter = NewsAdapter(data, activity)
+    recyclerView.adapter = newsAdapter
 
-        myPresenter.getData(recyclerView, data as ArrayList<Cat>)
+    myPresenter.getData(recyclerView, data as ArrayList<Cat>)
 
 
-        return rootView
-    }
-
+    return rootView
+  }
 
 
 }// Required empty public constructor

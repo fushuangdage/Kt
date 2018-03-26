@@ -12,34 +12,34 @@ import java.util.ArrayList
 
 class ListActivity : AppCompatActivity(), IView {
 
-    lateinit var presenter: MyPresenter
+  lateinit var presenter: MyPresenter
 
-    val items = arrayListOf<Cat>()
+  val items = arrayListOf<Cat>()
 
-    var customAdapter = CustomAdapter(items)
+  var customAdapter = CustomAdapter(items)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        presenter = MyPresenter()
+    presenter = MyPresenter()
 
-        verticalLayout {
+    verticalLayout {
 
-            val listView = listView {
-                adapter = customAdapter
-            }
+      val listView = listView {
+        adapter = customAdapter
+      }
 
-        }.let {
-            setContentView(it)
-        }
-
+    }.let {
+      setContentView(it)
     }
 
+  }
 
-    override fun showData(list: ArrayList<Cat>?) {
-        items.addAll(list!!)
-        customAdapter.notifyDataSetChanged()
-    }
+
+  override fun showData(list: ArrayList<Cat>?) {
+    items.addAll(list!!)
+    customAdapter.notifyDataSetChanged()
+  }
 
 }
 
