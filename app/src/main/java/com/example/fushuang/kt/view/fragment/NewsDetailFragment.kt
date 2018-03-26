@@ -10,7 +10,6 @@ import android.view.ViewGroup
 
 import com.example.fushuang.kt.R
 import org.jetbrains.anko.*
-import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.UI
 
 
@@ -40,7 +39,7 @@ class NewsDetailFragment : Fragment() {
                     textView{
                         backgroundColor =Color.GRAY
                         text="22222222222222222222"
-                        textSize =24f
+                        textSize =sp(24).toFloat()
                     }.lparams( width = matchParent,height = dip(2000))
                 }
             }

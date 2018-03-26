@@ -6,6 +6,7 @@ import android.text.InputType
 import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import com.example.fushuang.kt.R
 import com.example.fushuang.kt.view.view.myRichView
 import org.jetbrains.anko.*
@@ -15,8 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
-        MainActivityUi().setContentView(this);
+        linearLayout {
+
+        }
+        MainActivityUi().setContentView(this)
     }
 
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 
 import com.example.fushuang.kt.adapter.NewsAdapter
 import com.example.fushuang.kt.module.Cat
@@ -26,7 +27,6 @@ class NewsListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var rootView :View
     lateinit var newsAdapter:NewsAdapter
-
     lateinit var data:List<Cat>
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
