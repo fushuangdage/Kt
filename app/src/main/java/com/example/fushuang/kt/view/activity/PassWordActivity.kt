@@ -2,31 +2,39 @@ package com.example.fushuang.kt.view.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.Gravity
+import com.example.fushuang.kt.global.BaseSize
+import com.example.fushuang.kt.util.ToastUtil
 
-import com.example.fushuang.kt.R
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
 class PassWordActivity : AppCompatActivity() {
 
+  object ViewID {
+    val PASSWORDID = 1001
+    val SUBMITID = 1002
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     verticalLayout {
 
-      var editText = editText {
+      var password = editText {
+        id = ViewID.PASSWORDID
         gravity = Gravity.CENTER_HORIZONTAL
+        singleLine = true
         width = matchParent
-        height = dip(40)
+        height = BaseSize.passwordEditTextHeight
         hint = "请输入密码"
       }
 
       button {
+        id = ViewID.SUBMITID
         text = "校验"
         onClick {
-          var password = editText.text.toString()
-          checkPwd(password)
+          var password = password.text.toString()
+          checkPassword(password)
 
         }
       }
@@ -34,48 +42,35 @@ class PassWordActivity : AppCompatActivity() {
     }.let { setContentView(it) }
   }
 
-  private fun checkPwd(password: String) {
+  private fun checkPassword(password: String) {
 
-    if (password.contains(" ")) {
-      toast("含有不合理字符")
-      return
-    }
+    when {
+      password.contains(" ")
+      -> ToastUtil.toast("含有不合理字符")
 
-    if (password.length > 5) {
+      password.length < 6
+      -> ToastUtil.toast("密码长度必须大于5位")
 
-      if (Regex("[0-9]+").matches(password)) {
-        toast("不能为纯数字")
-        return
-      }
+      Regex("[0-9]+").matches(password)
+      -> ToastUtil.toast("不能为纯数字")
 
-      if (Regex("[a-z]+", RegexOption.IGNORE_CASE).matches(password)) {
-        toast("不能为纯字母")
-        return
-      }
+      Regex("[a-z]+", RegexOption.IGNORE_CASE).matches(password)
+      -> ToastUtil.toast("不能为纯字母")
 
-
-      if (Regex("[0-9]").containsMatchIn(password)
+      Regex("[!@#$%¥^&*()_=+?]").containsMatchIn(password)
               && Regex("[a-z]").containsMatchIn(password)
-              && Regex("[A-Z]").containsMatchIn(password)) {
+              && Regex("[A-Z]").containsMatchIn(password)
+      -> ToastUtil.toast("强")
 
-        if (Regex("[!@#$%^&*()_+=,.？]").containsMatchIn(password)) {
-          toast("强")
-          return
-        }
+      Regex("[0-9]").containsMatchIn(password)
+              && Regex("[a-z]").containsMatchIn(password)
+              && Regex("[A-Z]").containsMatchIn(password)
+      -> ToastUtil.toast("中")
 
-        toast("中")
-        return
-      }
+      else ->ToastUtil.toast("弱")
 
-      toast("弱")
-
-
-    } else {
-      toast("密码长度必须大于5位")
     }
-
 
   }
-
 
 }
