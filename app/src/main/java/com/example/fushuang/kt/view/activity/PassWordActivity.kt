@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.Gravity
 import com.example.fushuang.kt.global.BaseSize
 import com.example.fushuang.kt.util.ToastUtil
+import com.example.fushuang.kt.view.view.PasswordStrengthView
+import com.example.fushuang.kt.view.view.passwordStrengthView
 
 import org.jetbrains.anko.*
 import org.jetbrains.anko.sdk25.coroutines.onClick
@@ -14,6 +16,7 @@ class PassWordActivity : AppCompatActivity() {
   object ViewID {
     val PASSWORDID = 1001
     val SUBMITID = 1002
+    val STRENGTHVIEW = 1003
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +42,18 @@ class PassWordActivity : AppCompatActivity() {
         }
       }
 
+      passwordStrengthView {
+        id = ViewID.STRENGTHVIEW
+
+      }.lparams(height = 100, width = matchParent)
+
     }.let { setContentView(it) }
   }
 
   private fun checkPassword(password: String) {
 
+    var result = 60
+    var passwordArray = password.toCharArray()
     when {
       password.contains(" ")
       -> ToastUtil.toast("含有不合理字符")
@@ -60,17 +70,55 @@ class PassWordActivity : AppCompatActivity() {
       Regex("[!@#$%¥^&*()_=+?]").containsMatchIn(password)
               && Regex("[a-z]").containsMatchIn(password)
               && Regex("[A-Z]").containsMatchIn(password)
-      -> ToastUtil.toast("强")
+      -> result = 100
 
       Regex("[0-9]").containsMatchIn(password)
               && Regex("[a-z]").containsMatchIn(password)
               && Regex("[A-Z]").containsMatchIn(password)
-      -> ToastUtil.toast("中")
-
-      else ->ToastUtil.toast("弱")
+      -> result = 80
 
     }
+    var repeatCount = 0
+    /**
+     * 递增连续字符减分
+     */
+    for (i in 0..passwordArray.size - 2)
+      if (passwordArray[i] - passwordArray[i + 1] == -1)
+        repeatCount++
+    if (repeatCount >= 3) {
+      result -= 20
+    }
+    /**
+     * 连续相同字符减分
+     */
+    repeatCount = 0
+    for (i in 0..passwordArray.size - 2)
+      if (passwordArray[i] - passwordArray[i + 1] == 0)
+        repeatCount++
+    if (repeatCount >= 3) {
+      result -= 20
+    }
+    /**
+     * 包含疑似生日减分减分
+     */
+    if (Regex("19[0-9]{6}").containsMatchIn(password)) {
+      result -= 10
+    }
+    /**
+     * 首字母大写加分加分
+     */
+    if (Regex("[A-Z].*").matches(password)) {
+      result += 10
+    }
+
+    when (result) {
+      in 90..200->ToastUtil.toast("强")
+      in 60..80->ToastUtil.toast("中")
+      in 0..60->ToastUtil.toast("弱")
+    }
+
 
   }
+
 
 }
