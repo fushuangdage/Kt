@@ -38,7 +38,7 @@ class PassWordActivity : AppCompatActivity() {
         text = "校验"
         onClick {
           var password = password.text.toString()
-          var message=checkPassword(password)
+          var message = checkPassword(password)
           toast(message)
 
         }
@@ -71,12 +71,12 @@ class PassWordActivity : AppCompatActivity() {
       -> message = "不能为纯字母"
 
       Regex("[!@#$%¥^&*()_=+?]").containsMatchIn(password)
-              && Regex("[a-z]").containsMatchIn(password)
-              && Regex("[A-Z]").containsMatchIn(password)
+        && Regex("[a-z]").containsMatchIn(password)
+        && Regex("[A-Z]").containsMatchIn(password)
       -> result = 100
 
       Regex("[a-z]").containsMatchIn(password)
-              && Regex("[A-Z]").containsMatchIn(password)
+        && Regex("[A-Z]").containsMatchIn(password)
       -> result = 80
 
     }
@@ -84,11 +84,12 @@ class PassWordActivity : AppCompatActivity() {
     /**
      * 递增连续字符减分
      */
-    for (i in 0..passwordArray.size - 2) {
-      if (passwordArray[i] - passwordArray[i + 1] == -1) {
+    for (i in 1 until passwordArray.size) {
+      if (passwordArray[i] - passwordArray[i - 1] == 1) {
         repeatCount++
-        if (repeatCount >= 3) {
+        if (repeatCount >= 2) {
           result -= 20
+          toast("有连续")
           break
         }
       } else
@@ -98,11 +99,12 @@ class PassWordActivity : AppCompatActivity() {
      * 连续相同字符减分
      */
     repeatCount = 0
-    for (i in 0..passwordArray.size - 2) {
-      if (passwordArray[i] - passwordArray[i + 1] == 0) {
+    for (i in 1 until passwordArray.size) {
+      if (passwordArray[i] - passwordArray[i - 1] == 0) {
         repeatCount++
-        if (repeatCount >= 3) {
+        if (repeatCount >= 2) {
           result -= 20
+          toast("有连续")
           break
         }
       } else
