@@ -2,6 +2,8 @@ package com.example.fushuang.kt.view.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Message
+import android.text.style.LineHeightSpan
 import android.view.Gravity
 import android.widget.TextView
 import com.example.fushuang.kt.global.BaseSize
@@ -19,6 +21,9 @@ class PassWordActivity : AppCompatActivity() {
     val SUBMITID = 1002
     val STRENGTHVIEW = 1003
   }
+
+  inner class CheckPasswordResult(var code: Int, var message: String, var grade: Int)
+
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -38,9 +43,12 @@ class PassWordActivity : AppCompatActivity() {
         text = "校验"
         onClick {
           var password = password.text.toString()
-          var message = checkPassword(password)
-          toast(message)
-
+          var result = checkPassword(password)
+          if (Code.UNSAFE == result.code) {
+            toast(result.message)
+          } else {
+            toast(result.code.toString())
+          }
         }
       }
 
@@ -52,33 +60,44 @@ class PassWordActivity : AppCompatActivity() {
     }.let { setContentView(it) }
   }
 
-  private fun checkPassword(password: String): String {
+  object Code {
+    val UNSAFE = 0
+    val LOW = 1
+    val MIDDLE = 2
+    val HIGH = 3
+  }
 
-    var result = 60
-    var message = ""
+
+  private fun checkPassword(password: String): CheckPasswordResult {
+    var checkPasswordResult = CheckPasswordResult(Code.UNSAFE, "", 0)
     var passwordArray = password.toCharArray()
     when {
       password.contains(" ")
-      -> message = "含有不合理字符"
+      -> checkPasswordResult.message = "含有不合理字符"
 
       password.length < 6
-      -> message = "密码长度必须大于5位"
+      -> checkPasswordResult.message = "密码长度必须大于5位"
 
       Regex("[0-9]+").matches(password)
-      -> message = "不能为纯数字"
+      -> checkPasswordResult.message = "不能为纯数字"
 
       Regex("[a-z]+", RegexOption.IGNORE_CASE).matches(password)
-      -> message = "不能为纯字母"
+      -> checkPasswordResult.message = "不能为纯字母"
 
       Regex("[!@#$%¥^&*()_=+?]").containsMatchIn(password)
         && Regex("[a-z]").containsMatchIn(password)
         && Regex("[A-Z]").containsMatchIn(password)
-      -> result = 100
+      -> {
+        checkPasswordResult.grade = 100
+        checkPasswordResult.code = Code.HIGH
+      }
 
       Regex("[a-z]").containsMatchIn(password)
         && Regex("[A-Z]").containsMatchIn(password)
-      -> result = 80
-
+      -> {
+        checkPasswordResult.grade = 80
+        checkPasswordResult.code = Code.MIDDLE
+      }
     }
     var repeatCount = 0
     /**
@@ -88,7 +107,7 @@ class PassWordActivity : AppCompatActivity() {
       if (passwordArray[i] - passwordArray[i - 1] == 1) {
         repeatCount++
         if (repeatCount >= 2) {
-          result -= 20
+          checkPasswordResult.grade -= 20
           toast("有连续")
           break
         }
@@ -103,7 +122,7 @@ class PassWordActivity : AppCompatActivity() {
       if (passwordArray[i] - passwordArray[i - 1] == 0) {
         repeatCount++
         if (repeatCount >= 2) {
-          result -= 20
+          checkPasswordResult.grade -= 20
           toast("有连续")
           break
         }
@@ -115,22 +134,22 @@ class PassWordActivity : AppCompatActivity() {
      * 包含疑似生日减分减分
      */
     if (Regex("19[0-9]{6}").containsMatchIn(password)) {
-      result -= 10
+      checkPasswordResult.grade -= 10
     }
     /**
      * 首字母大写加分加分
      */
     if (Regex("[A-Z].*").matches(password)) {
-      result += 10
+      checkPasswordResult.grade += 10
     }
 
-    when (result) {
-      in 90..200 -> message = "强"
-      in 60..80 -> message = "中"
-      in 0..60 -> message = "弱"
+    when (checkPasswordResult.grade) {
+      in 90..200 -> checkPasswordResult.code = Code.HIGH
+      in 60..80 -> checkPasswordResult.code = Code.MIDDLE
+      in 0..60 -> checkPasswordResult.code = Code.LOW
     }
 
-    return message
+    return checkPasswordResult
   }
 
 
