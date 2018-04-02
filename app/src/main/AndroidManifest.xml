@@ -2,18 +2,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fushuang.kt">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
+        android:name=".KtApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".KtApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.MainActivity"></activity>
-        <activity android:name=".view.activity.ListActivity" />
+        <activity android:name=".view.activity.MainActivity" />
         <activity android:name=".view.activity.NewsActivity" />
         <activity android:name=".view.activity.PassWordActivity">
+
+        </activity>
+        <activity android:name=".view.activity.MoneyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

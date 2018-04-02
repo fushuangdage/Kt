@@ -33,6 +33,15 @@ dependencies {
     compile 'org.jetbrains.anko:anko-recyclerview-v7:0.10.0'
     compile 'org.jetbrains.anko:anko-recyclerview-v7-coroutines:0.10.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile('cn.qqtheme.framework:WheelPicker:1.4.1') {
+        exclude group: 'com.android.support'
+    }
 }
 repositories {
     mavenCentral()

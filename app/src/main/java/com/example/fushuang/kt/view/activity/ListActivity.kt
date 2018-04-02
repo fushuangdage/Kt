@@ -10,7 +10,7 @@ import com.example.fushuang.kt.view.view.IView
 import org.jetbrains.anko.*
 import java.util.ArrayList
 
-class ListActivity : AppCompatActivity(), IView {
+abstract class ListActivity : AppCompatActivity(), IView {
 
   lateinit var presenter: MyPresenter
 
@@ -33,12 +33,6 @@ class ListActivity : AppCompatActivity(), IView {
       setContentView(it)
     }
 
-  }
-
-
-  override fun showData(list: ArrayList<Cat>?) {
-    items.addAll(list!!)
-    customAdapter.notifyDataSetChanged()
   }
 
 }

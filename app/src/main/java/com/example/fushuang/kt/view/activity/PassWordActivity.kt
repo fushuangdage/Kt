@@ -57,6 +57,9 @@ class PassWordActivity : AppCompatActivity() {
 
       }.lparams(height = 100, width = matchParent)
 
+
+
+
     }.let { setContentView(it) }
   }
 
